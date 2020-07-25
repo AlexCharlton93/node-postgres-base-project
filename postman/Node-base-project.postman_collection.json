@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "c509de5c-155e-4bef-8f17-de0b35c98d67",
+		"name": "Node-base-project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Authenticate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailAddress\": \"alex-charlton@live.co.uk\",\r\n    \"password\": \"Password123#\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/1.0/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"1.0",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailAddress\": \"alex-charlton@live.co.uk\",\r\n    \"password\": \"Password123#\",\r\n    \"confirmPassword\" : \"Password123#\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/1.0/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"1.0",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Example",
+			"item": [
+				{
+					"name": "Example Middleware",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYTRkNjQ0ZS1lNjhkLTRiZDAtYTdjMy03MzU0N2JhMDQwZTQiLCJ1c2VyRW1haWwiOiJhbGV4LWNoYXJsdG9uQGxpdmUuY28udWsiLCJpYXQiOjE1OTQ0NjkxODAsImV4cCI6MTU5NDQ3Mjc4MH0.EWW3nEVtLMMLYsq7Ku-WNyB_pZcupB2PEJJz1TQ01Do",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/1.0/example",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"1.0",
+								"example"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
