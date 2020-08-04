@@ -8,7 +8,7 @@ import { setupApp } from './common/setup';
 import { config } from './common/config';
 import { controllerCatch } from './common/errors';
 
-async function initApp() {
+function initApp() {
     const app = express();
 	
     app.use(bodyParser.json());
@@ -38,10 +38,10 @@ async function initApp() {
 
 	app.listen(config.environment.port, () => {
 		console.log(`Running on port: ${config.environment.port}`);
-		console.log(`Environment: ${process.env.NODE_ENV}`);
+		// console.log(`Environment: ${process.env.NODE_ENV}`);
 	});
 
-	await setupApp(app);
+	setupApp(app);
 }
 
 initApp();

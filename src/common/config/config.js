@@ -1,8 +1,9 @@
 export const config = {
     database: {
-        uri: 'localhost',
-        port: '27017',
-        databaseName: 'databasename'
+        user: 'admin',
+        password: 'LD46723rt15p',
+        port: 5432,
+        databaseName: 'api'
     },
     environment: {
         port: 3001

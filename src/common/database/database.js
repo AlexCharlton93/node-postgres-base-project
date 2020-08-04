@@ -1,13 +1,9 @@
-import mongoose from 'mongoose';
+import { Sequelize } from 'sequelize';
 import { config } from '../config';
 
-mongoose.Promise = global.Promise;
+const { database } = config;
 
-export async function databaseService() {
-	const { database } = config;
-
-	await mongoose.connect(`mongodb://${database.uri}:${database.port}/${database.databaseName}`, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true
-	});
-}
+export const db = new Sequelize(`${database.databaseName}`, `${database.user}`, `${database.password}`, {
+	host: 'localhost',
+	dialect: 'postgres'
+});
