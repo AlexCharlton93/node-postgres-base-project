@@ -3,8 +3,7 @@ import jwt from 'jsonwebtoken';
 import { HttpError, errorTypes } from '../../../common/errors';
 import { authErrorMessages } from '../shared';
 import { config } from '../../../common/config';
-// TODO: Consider splitting into own service layer
-import { User } from "../../../common/services/user";
+import { userFindByEmail, userRegister } from '../../../common/services/user';
 
 export const createAccount = async(request) => {
     _validateRequest(request);
@@ -19,7 +18,7 @@ export const createAccount = async(request) => {
     await _checkIfAlreadyRegistered(emailAddress);
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
-    const user = await User.create({emailAddress, password: encryptedPassword})
+    const user = await userRegister(emailAddress, encryptedPassword);
 
     if (!user) {
         throw new HttpError(authErrorMessages.unableToRegister, authErrorMessages.unableToRegister, errorTypes.INVALID_OPERATION);
@@ -37,11 +36,7 @@ export const createAccount = async(request) => {
 };
 
 const _checkIfAlreadyRegistered = async(emailAddress) => {
-    const user = await User.findOne({
-        where: {
-            emailAddress,
-        },
-    });
+    const user = await userFindByEmail(emailAddress);
 
     if (user) {
         throw new HttpError(authErrorMessages.alreadyRegistered, authErrorMessages.alreadyRegistered, errorTypes.INVALID_OPERATION);

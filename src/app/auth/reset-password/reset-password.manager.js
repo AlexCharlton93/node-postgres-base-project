@@ -1,19 +1,14 @@
 import bcrypt from 'bcrypt';
 import { HttpError, errorTypes } from '../../../common/errors';
 import { authErrorMessages } from '../shared';
-// TODO: Consider splitting into own service layer
-import { User } from "../../../common/services/user";
+import { userFindByEmail, userUpdatePassword } from '../../../common/services/user';
 
 export const updatePassword = async(request) => {
     _validateRequest(request);
 
     const { body: { emailAddress, newPassword, verificationCode } } = request;
 
-    const user = await User.findOne({
-        where: {
-            emailAddress,
-        },
-    });
+    const user = await userFindByEmail(emailAddress);
 
     if (!user) {
         throw new HttpError(
@@ -33,11 +28,10 @@ export const updatePassword = async(request) => {
 
     const encryptedPassword = bcrypt.hashSync(newPassword, 10);
 
-    // TODO: Update using Sequelize
-    // await userUpdatePassword(
-    //     emailAddress,
-    //     encryptedPassword
-    // );
+    await userUpdatePassword(
+        emailAddress,
+        encryptedPassword
+    );
 };
 
 const _validateRequest = (request) => {

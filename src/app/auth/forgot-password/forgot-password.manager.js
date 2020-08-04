@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import { HttpError, errorTypes } from '../../../common/errors';
-// import { userUpdateVerificationCode } from '../../../common/services/user';
+import { userUpdateVerificationCode } from '../../../common/services/user';
 import { authErrorMessages } from '../shared';
 import { config } from '../../../common/config';
 import { forgotPasswordEmailTemplate } from '../../../common/email-templates';
@@ -12,8 +12,7 @@ export const sendPasswordResetEmail = async(request) => {
     const { email: { host, port, secure, user, pass }, resetPassword: { url } } = config;
     const verificationCode = _generateVerificationCode();
 
-    // TODO: Update using Sequelize
-    // await userUpdateVerificationCode(emailAddress, verificationCode);
+    await userUpdateVerificationCode(emailAddress, verificationCode);
 
     const transporter = nodemailer.createTransport({
         host,

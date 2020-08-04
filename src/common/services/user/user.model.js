@@ -18,7 +18,4 @@ export const User = db.define(
     }
 );
 
-// Create Users Table If Does Not Yet Exist
-User.sync().then(() => {
-    console.log("Users Table Created");
-});
+User.sync();
