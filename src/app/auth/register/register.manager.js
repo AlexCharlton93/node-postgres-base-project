@@ -25,7 +25,7 @@ export const createAccount = async(request) => {
         throw new HttpError(authErrorMessages.unableToRegister, authErrorMessages.unableToRegister, errorTypes.INVALID_OPERATION);
     }
 
-    const token = jwt.sign({ userId: user._id, userEmail: user.emailAddress }, config.secretKey, {
+    const token = jwt.sign({ userId: user.id, userEmail: user.emailAddress }, config.secretKey, {
         expiresIn: config.JwtExpiryTime,
     });
 
