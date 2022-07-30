@@ -1,9 +1,9 @@
-import { AuthController } from "../../app/auth";
+import { Auth } from "../../app/auth";
 import { User } from "../../app/user";
 import { db } from "../database";
 
 const registerControllers = (app) => {
-    AuthController(app);
+    Auth(app);
     User(app);
 };
 
