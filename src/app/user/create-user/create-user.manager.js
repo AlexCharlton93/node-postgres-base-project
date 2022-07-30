@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { HttpError, errorTypes } from '../../../common/errors';
 import { userFindByEmail, userRegister } from '../../../common/services/user';
-import { leaderboardCreate } from '../../../common/services/leaderboard';
 import { userErrorMessages } from '../shared';
 
 export const createAccount = async(request) => {
@@ -28,8 +27,6 @@ export const createAccount = async(request) => {
     const token = jwt.sign({ userId: user._id, userEmail: user.emailAddress }, process.env.APP_JWT_SECRET_KEY, {
         expiresIn: process.env.APP_JWT_EXPIRY_TIME,
     });
-
-    await leaderboardCreate(user._id);
 
     // TODO: Send Registered/Welcome Email
 

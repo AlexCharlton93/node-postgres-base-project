@@ -4,7 +4,6 @@ import {
     internalMessages,
     controllerCatch,
 } from "../../common/errors";
-import { userRoute } from "../../common/routes";
 import { createAccount } from "./create-user";
 
 export const UserController = (app) => {
@@ -16,19 +15,13 @@ export const UserController = (app) => {
         );
     }
 
-    registerRoutes(app);
-};
-
-const registerRoutes = (app) => {
-    app.post(userRoute, createUserController());
-}
-
-export const createUserController = () => async (request, response) => {
-    try {
-        const user = await createAccount(request);
-
-        response.send(user);
-    } catch (e) {
-        controllerCatch(e, request, response);
-    }
+    app.post("/user", async (req, res) => {
+        try {
+            const user = await createAccount(req);
+    
+            res.send(user);
+        } catch (e) {
+            controllerCatch(e, req, res);
+        }
+    });
 };

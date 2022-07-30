@@ -7,6 +7,4 @@ export const loginRoute = `${authRoute}/login`;
 export const forgotPasswordRoute = `${authRoute}/forgot-password`;
 export const resetPasswordRoute = `${authRoute}/reset-password`;
 
-export const userRoute = `${mainRoute}/user`;
-
 export const exampleRoute = `${mainRoute}/example`;
