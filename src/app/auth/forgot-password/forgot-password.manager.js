@@ -2,33 +2,31 @@ import nodemailer from 'nodemailer';
 import { HttpError, errorTypes } from '../../../common/errors';
 import { userUpdateVerificationCode } from '../../../common/services/user';
 import { authErrorMessages } from '../shared';
-import { config } from '../../../common/config';
 import { forgotPasswordEmailTemplate } from '../../../common/email-templates';
 
 export const sendPasswordResetEmail = async(request) => {
     _validateRequest(request);
 
     const { body: { emailAddress } } = request;
-    const { email: { host, port, secure, user, pass }, resetPassword: { url } } = config;
     const verificationCode = _generateVerificationCode();
 
     await userUpdateVerificationCode(emailAddress, verificationCode);
 
     const transporter = nodemailer.createTransport({
-        host,
-        port,
-        secure,
+        host: process.env.APP_EMAIL_HOST,
+        port: process.env.APP_EMAIL_PORT,
+        secure: process.env.APP_EMAIL_SECURE,
         auth: {
-            user,
-            pass,
+            user: process.env.APP_EMAIL_USER,
+            pass: process.env.APP_EMAIL_PASS,
         },
     });
 
     const mailOptions = {
-        from: `${user}`,
+        from: `${process.env.APP_EMAIL_USER}`,
         to: emailAddress,
         subject: 'Reset Password',
-        text: `To reset your password navigate to the following url: ${url} and enter the following verification code: ${verificationCode}`, // plain text body
+        text: `To reset your password navigate to the following url: ${process.env.APP_RESET_PASSWORD_URL} and enter the following verification code: ${verificationCode}`, // plain text body
         html: forgotPasswordEmailTemplate(verificationCode),
     };
 
