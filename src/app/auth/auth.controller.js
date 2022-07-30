@@ -5,9 +5,8 @@ import {
     controllerCatch,
 } from "../../common/errors";
 import { statusCodes } from '../../common/status-codes';
-import { loginRoute, registerRoute, resetPasswordRoute, forgotPasswordRoute } from "../../common/routes";
+import { loginRoute, resetPasswordRoute, forgotPasswordRoute } from "../../common/routes";
 import { generateToken } from "./login";
-import { createAccount } from "./register";
 import { updatePassword } from "./reset-password";
 import { sendPasswordResetEmail } from "./forgot-password";
 
@@ -25,7 +24,6 @@ export const AuthController = (app) => {
 
 const registerRoutes = (app) => {
     app.post(loginRoute, authenticate());
-    app.post(registerRoute, register());
     app.post(resetPasswordRoute, resetPassword());
     app.post(forgotPasswordRoute, forgotPassword());
 }
@@ -35,16 +33,6 @@ export const authenticate = () => async (request, response) => {
         const jwt = await generateToken(request);
 
         response.send(jwt);
-    } catch (e) {
-        controllerCatch(e, request, response);
-    }
-};
-
-export const register = () => async (request, response) => {
-    try {
-        const user = await createAccount(request);
-
-        response.send(user);
     } catch (e) {
         controllerCatch(e, request, response);
     }

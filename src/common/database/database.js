@@ -1,9 +1,8 @@
 import { Sequelize } from 'sequelize';
-import { config } from '../config';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const { database } = config;
-
-export const db = new Sequelize(`${database.databaseName}`, `${database.user}`, `${database.password}`, {
-	host: 'localhost',
+export const db = new Sequelize(`${process.env.DB_NAME}`, `${process.env.DB_USER}`, `${process.env.DB_PASSWORD}`, {
+	host: process.env.DB_URI,
 	dialect: 'postgres'
 });

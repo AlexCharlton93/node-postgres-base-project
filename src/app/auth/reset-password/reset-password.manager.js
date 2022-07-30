@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { HttpError, errorTypes } from '../../../common/errors';
-import { authErrorMessages } from '../shared';
 import { userFindByEmail, userUpdatePassword } from '../../../common/services/user';
+import { authErrorMessages } from '../shared';
 
 export const updatePassword = async(request) => {
     _validateRequest(request);
