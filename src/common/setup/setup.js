@@ -1,12 +1,12 @@
 import { AuthController } from "../../app/auth";
-import { UserController } from "../../app/user";
+import { User } from "../../app/user";
 import { ExampleController } from "../../app/example";
 import { db } from "../database";
 
 const registerControllers = (app) => {
     AuthController(app);
     ExampleController(app);
-    UserController(app);
+    User(app);
 };
 
 export const setupApp = (app) => {
