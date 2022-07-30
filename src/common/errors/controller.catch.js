@@ -2,7 +2,7 @@ import { errorTypes } from './errors.constants';
 import { HttpError } from './http.errors';
 import { statusCodes } from '../status-codes';
 
-export function controllerCatch(err, request, response) {
+export function controllerCatch(err, req, res) {
 	let errorMessage;
 	let responseCode;
 
@@ -30,6 +30,7 @@ export function controllerCatch(err, request, response) {
 		responseCode = statusCodes.INTERNAL_SERVER_ERROR;
 	}
 
-	response.status(responseCode);
-	response.json(errorMessage);
+	res.status(responseCode).send({
+		message: errorMessage
+	});
 }
