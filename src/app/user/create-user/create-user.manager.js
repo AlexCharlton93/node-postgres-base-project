@@ -18,7 +18,7 @@ export const createAccount = async(request) => {
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
-    const user = await userRegister(name, emailAddress, encryptedPassword);
+    const user = await userRegister(emailAddress, encryptedPassword);
 
     if (!user) {
         throw new HttpError(userErrorMessages.unableToRegister, userErrorMessages.unableToRegister, errorTypes.INVALID_OPERATION);
